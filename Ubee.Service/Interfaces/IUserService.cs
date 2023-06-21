@@ -10,4 +10,5 @@ public interface IUserService
     ValueTask<UserForResultDto> ModifyUserAsync(UserForUpdateDto userForUpdateDto);
     ValueTask<UserForResultDto> AddUserAsync(UserForCreationDto userForCreationDto);
     ValueTask<IEnumerable<UserForResultDto>> RetrieveAllUserAsync(PaginationParams @params, string search = null);
+    ValueTask<UserForResultDto> CheckUserAsync(string username, string password = null);
 }
