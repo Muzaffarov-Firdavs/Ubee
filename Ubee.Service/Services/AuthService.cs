@@ -4,6 +4,7 @@ using Ubee.Service.Interfaces;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using Microsoft.Extensions.Configuration;
+using Ubee.Service.Exceptions;
 
 namespace Ubee.Service.Services
 {
@@ -11,11 +12,13 @@ namespace Ubee.Service.Services
     {
         private readonly IUserService userService;
         private readonly IConfiguration configuration;
+        private readonly List<string> blacklistedTokens;
 
         public AuthService(IUserService userService, IConfiguration configuration)
         {
             this.userService = userService;
             this.configuration = configuration;
+            this.blacklistedTokens = new List<string>();
         }
 
         public async ValueTask<string> GenerateTokenAsync(string username, string password)
@@ -39,6 +42,27 @@ namespace Ubee.Service.Services
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
+        }
+
+        private async ValueTask BlacklistToken(string token)
+        {
+            blacklistedTokens.Add(token);
+        }
+
+        public bool IsTokenBlacklisted(string token)
+        {
+            return blacklistedTokens.Contains(token);
+        }
+
+        public async ValueTask<bool> LogoutAsync(string token)
+        {
+            if (string.IsNullOrEmpty(token))
+            {
+                throw new CustomException(498, "Invalid token.");
+            }
+
+            await BlacklistToken(token);
+            return true;
         }
     }
 }

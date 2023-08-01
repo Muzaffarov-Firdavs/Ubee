@@ -9,6 +9,7 @@ namespace Ubee.Web.Extensions
 	{
 		public static void AddCustomService(this IServiceCollection services)
 		{
+			services.AddScoped<IAuthService, AuthService>();
 			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<IWalletService, WalletService>();
 			services.AddScoped<ICategoryService, CategoryService>();

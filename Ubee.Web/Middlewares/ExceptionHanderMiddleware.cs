@@ -31,7 +31,7 @@ namespace Ubee.Web.Middlewares
 			catch(Exception ex)
 			{
 				this.logger.LogError($"{ex.ToString()}\n");
-				context.Response.StatusCode= 500;
+				context.Response.StatusCode = 500;
 				await context.Response.WriteAsJsonAsync(new
 				{
 					code = 500,
