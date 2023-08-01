@@ -24,8 +24,9 @@ public class UserService : IUserService
     }
     public async ValueTask<UserForResultDto> AddUserAsync(UserForCreationDto dto)
     {
-        var user = await this.userRepository.SelectAsync(u => u.Username.ToLower() == dto.Username.ToLower());
-        if (user is not null)
+        var user = await this.userRepository.SelectAsync(u =>
+                u.Username.ToLower() == dto.Username.ToLower() || u.Phone == dto.Phone);
+        if (user is not null && !user.IsDeleted)
             throw new CustomException(409, "User is already exists");
 
         var mappedUser = this.mapper.Map<User>(dto);
@@ -61,7 +62,7 @@ public class UserService : IUserService
 
     public async ValueTask<UserForResultDto> RetrieveUserByIdAsync(long id)
     {
-        var user = await this.userRepository.SelectAsync(u => u.Id == id);
+        var user = await this.userRepository.SelectAsync(u => u.Id == id && !u.IsDeleted);
         if (user is null)
             throw new CustomException(404, "User is not found ");
         var result = this.mapper.Map<UserForResultDto>(user);
@@ -71,7 +72,7 @@ public class UserService : IUserService
 
     public async ValueTask<UserForResultDto> ModifyUserAsync(UserForUpdateDto dto)
     {
-        var user = await this.userRepository.SelectAsync(u => u.Id == dto.Id);
+        var user = await this.userRepository.SelectAsync(u => u.Id == dto.Id && !u.IsDeleted);
         if (user is null)
             throw new CustomException(404, "User is not found ");
 
@@ -86,7 +87,7 @@ public class UserService : IUserService
     public async ValueTask<UserForResultDto> CheckUserAsync(string username, string password = null)
     {
         var user = await this.userRepository.SelectAsync(t => t.Username.ToLower().Equals(username.ToLower()));
-        if (user is null)
+        if (user is null || user.IsDeleted)
             throw new CustomException(404, "User is not found");
         return this.mapper.Map<UserForResultDto>(user);
     }

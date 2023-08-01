@@ -33,7 +33,7 @@ namespace Ubee.Web.Controllers
             {
                 Code = 200,
                 Message = "Success",
-                Data = await this.authService.AuthenticateAsync(dto.Email, dto.Password)
+                Data = await this.authService.AuthenticateAsync(dto.Username, dto.Password)
             });
 
         [HttpPost("logout")]
