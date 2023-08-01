@@ -6,10 +6,10 @@ using Ubee.Web.Helpers;
 
 namespace Ubee.Web.Controllers
 {
-	public class UserController : BaseController
+	public class UsersController : BaseController
 	{
 		private readonly IUserService userService;
-		public UserController(IUserService userService)
+		public UsersController(IUserService userService)
 		{
 			this.userService = userService;
 		}

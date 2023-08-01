@@ -6,40 +6,40 @@ using Ubee.Web.Helpers;
 
 namespace Ubee.Web.Controllers
 {
-	public class CategoryDetailController : BaseController
+	public class CategoriesController : BaseController
 	{
-		private readonly ICategoryDetailService categoryDetailService;
+		private readonly ICategoryService categoryService;
 
-		public CategoryDetailController(ICategoryDetailService categoryDetailService)
+		public CategoriesController(ICategoryService categoryService)
 		{
-			this.categoryDetailService = categoryDetailService;
+			this.categoryService = categoryService;
 		}
 
 		[HttpPost("create")]
-		public async Task<IActionResult> CreateCategoryDetailAsync(CategoryDetailForCreationDto dto)
+		public async Task<IActionResult> CreateCategoryAsync(CategoryForCreationDto dto)
 		=> Ok(new Response
 		{
 			Code = 200,
 			Message = "Success",
-			Data = await this.categoryDetailService.CreateAsync(dto)
+			Data = await this.categoryService.CreateAsync(dto)
 		});
 
 		[HttpDelete("delete/{id:long}")]
-		public async Task<IActionResult> DelateCategoryDetailAsync(int id)
+		public async Task<IActionResult> DelateCategoryAsync(int id)
 			=> Ok(new Response
 			{
 				Code = 200,
 				Message = "Success",
-				Data = await this.categoryDetailService.RemoveAsync(id)
+				Data = await this.categoryService.RemoveAsync(id)
 			});
 
 		[HttpPut("Update")]
-		public async Task<IActionResult> UpdateCategoryDetailAsync(CategoryDetailForUpdateDto dto)
+		public async Task<IActionResult> UpdateCategoryAsync(CategoryForUpdateDto dto)
 			=> Ok(new Response
 			{
 				Code = 200,
 				Message = "Success",
-				Data = await this.categoryDetailService.ModifyAsync(dto)
+				Data = await this.categoryService.ModifyAsync(dto)
 			});
 
 		[HttpGet("get-by-id{id:long}")]
@@ -48,7 +48,7 @@ namespace Ubee.Web.Controllers
 			{
 				Code = 200,
 				Message = "Success",
-				Data = await this.categoryDetailService.RetrieveByIdAsync(id)
+				Data = await this.categoryService.RetrieveByIdAsync(id)
 			});
 
 		[HttpGet("get-list")]
@@ -57,7 +57,7 @@ namespace Ubee.Web.Controllers
 			{
 				Code = 200,
 				Message = "Success",
-				Data = await this.categoryDetailService.RetrieveAllAsync(@params)
+				Data = await this.categoryService.RetrieveAllAsync(@params)
 			});
 	}
 }

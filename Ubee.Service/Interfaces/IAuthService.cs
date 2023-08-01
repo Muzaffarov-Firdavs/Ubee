@@ -4,7 +4,7 @@ namespace Ubee.Service.Interfaces
 {
     public interface IAuthService
     {
-        ValueTask<string> GenerateTokenAsync(string username, string password);
+        ValueTask<LoginResultDto> AuthenticateAsync(string username, string password);
         ValueTask<bool> LogoutAsync(string token);
     }
 }
