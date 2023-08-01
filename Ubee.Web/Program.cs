@@ -20,6 +20,10 @@ builder.Services.AddDbContext<AppDbContext>(option =>
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 builder.Services.AddControllers();
 
+// Add JWTBearer
+builder.Services.AddJwtService(builder.Configuration);
+
+
 //Convert  Api url name to dash case 
 builder.Services.AddControllers(options =>
 	options.Conventions.Add(
@@ -27,7 +31,7 @@ builder.Services.AddControllers(options =>
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.ConfigureSwagger();
 
 // Logger
 var logger = new LoggerConfiguration()
