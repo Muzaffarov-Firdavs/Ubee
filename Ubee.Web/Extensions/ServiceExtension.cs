@@ -15,6 +15,7 @@ namespace Ubee.Web.Extensions
 		{
 			services.AddScoped<IAuthService, AuthService>();
 			services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IPhoneService, PhoneService>();
 			services.AddScoped<IWalletService, WalletService>();
 			services.AddScoped<ICategoryService, CategoryService>();
 			services.AddScoped(typeof(IRepository<>),typeof(Repository<>));
