@@ -401,3 +401,4 @@ FodyWeavers.xsd
 Ubee.Web/appsettings.json
 Ubee.Web/appsettings.Development.json
 Ubee.Web/Logs
+/Ubee.Web/appsettings.json
