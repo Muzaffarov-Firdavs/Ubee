@@ -30,7 +30,7 @@ namespace Ubee.Service.Services
             request.Headers.Add("Authorization", $"Bearer {TOKEN}");
 
             var content = new MultipartFormDataContent();
-            content.Add(new StringContent(smsMessage.PhoneNumber), "mobile_phone");
+            content.Add(new StringContent(smsMessage.Phone), "mobile_phone");
             content.Add(new StringContent(smsMessage.Title + " " + smsMessage.Content), "message");
             content.Add(new StringContent(SENDER), "from");
             content.Add(new StringContent("http://0000.uz/test.php"), "callback_url");

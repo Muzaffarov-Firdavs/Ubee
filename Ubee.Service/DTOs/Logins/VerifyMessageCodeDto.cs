@@ -1,8 +1,8 @@
 ﻿namespace Ubee.Service.DTOs.Logins
 {
-    public class LoginDto
+    public class VerifyMessageCodeDto
     {
         public string Phone { get; set; }
-        public string Password { get; set; }
+        public int Code { get; set; }
     }
 }
