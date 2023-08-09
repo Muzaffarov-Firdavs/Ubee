@@ -49,7 +49,8 @@ public class UserService : IUserService
     }
 
 
-    public async ValueTask<IEnumerable<UserForResultDto>> RetrieveAllUserAsync(PaginationParams @params, string search = null)
+    public async ValueTask<IEnumerable<UserForResultDto>> RetrieveAllUserAsync(
+        PaginationParams @params, string search = null)
     {
         var users = await this.userRepository.SelectAll(u => !u.IsDeleted)
             .ToPagedList(@params).ToListAsync();
@@ -92,9 +93,9 @@ public class UserService : IUserService
         return this.mapper.Map<UserForResultDto>(user);
     }
 
-    public async ValueTask<User> RetrieveByUserEmailAsync(string username)
+    public async ValueTask<User> RetrieveByPhoneAsync(string phone)
     {
-        var user = await userRepository.SelectAsync(u => u.Username.ToLower() == username.ToLower());
+        var user = await userRepository.SelectAsync(u => u.Phone == phone);
         if (user is null || user.IsDeleted)
             throw new CustomException(404, "User Not Found");
 

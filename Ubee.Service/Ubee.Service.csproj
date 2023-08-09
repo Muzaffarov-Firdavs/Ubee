@@ -18,8 +18,4 @@
     <ProjectReference Include="..\Ubee.Shared\Ubee.Shared.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Helpers\" />
-  </ItemGroup>
-
 </Project>

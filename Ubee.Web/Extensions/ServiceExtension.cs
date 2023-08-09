@@ -1,11 +1,12 @@
-﻿using Ubee.Service.Services;
+﻿using System.Text;
+using Ubee.Service.Services;
 using Ubee.Data.Repositories;
 using Ubee.Service.Interfaces;
 using Ubee.Data.IRepositories;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
 using Microsoft.OpenApi.Models;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Caching.Memory;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace Ubee.Web.Extensions
 {
@@ -15,6 +16,7 @@ namespace Ubee.Web.Extensions
 		{
 			services.AddScoped<IAuthService, AuthService>();
 			services.AddScoped<IUserService, UserService>();
+			services.AddScoped<IMemoryCache, MemoryCache>();
             services.AddScoped<IPhoneService, PhoneService>();
 			services.AddScoped<IWalletService, WalletService>();
 			services.AddScoped<ICategoryService, CategoryService>();
